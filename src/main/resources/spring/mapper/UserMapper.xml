@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스명과 namespace를 동일하게 주어야 함 -->
+<mapper
+	namespace="com.tis.user.mapper.UserMapper">
+	<insert id="createMember" parameterType="Member">
+		insert into member (
+			user_no
+		  , user_id	, pwd		, user_name	, nickname
+		  , state	, joindate	, user_img
+		  ) values (
+		  	( select nvl ( max (user_no) + 1, 1) from member)
+		  , #{user_id}	, #{pwd}	, #{user_name}	, #{nickName}
+		  , 1			, sysdate	,'bike1.jpg')
+	</insert>
+	
+	<select id="memberChkByEmail" parameterType="string" resultType="Member">
+		select * from member where user_id = #{user_id}
+	</select>
+	
+	<select id="memberChkByNick" parameterType="string" resultType="Member">
+		select * from member where nickname = #{nickName}
+	</select>
+	
+	<update id="editMember" parameterType="Member">
+		update member 
+		set
+			user_name = #{user_name}
+		  , pwd = #{pwd}
+		  , nickname = #{nickName}
+		  , user_img = #{user_img}
+		where
+			user_id = #{user_id}		
+	</update>
+	<update id="quitMember" parameterType="int">
+		update member
+		set state = -1
+		where user_no = #{user_no}		
+	</update>
+
+</mapper>

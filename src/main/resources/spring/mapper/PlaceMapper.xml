@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스명과 namespace를 동일하게 주어야 함 -->
+<mapper namespace="com.tis.place.mapper.PlaceMapper">
+
+	<!-- id는 UserMapper인터페이스의 메소드명과 동일하게 준다 -->
+	<insert id="registerPlace" parameterType="Place">
+		<selectKey keyProperty="place_no" order="BEFORE" resultType="int">
+			select nvl ( max ( place_no ) + 1, 1) from place
+		</selectKey>
+		insert into place values(
+			#{place_no}	, #{title}	, #{latitude}				, #{longitude}
+		  , #{road_address:VARCHAR}	, #{jibun_address:VARCHAR}	, #{p_user_no})
+	</insert>
+	
+	<!-- 장소 지우기 -->
+	<delete id="deletePlace" parameterType="int">
+	   delete from place where place_no = #{value}
+	</delete>
+	
+	<select id="getTotalPlaceCount" resultType="int">
+	   select count(place_no) from place
+	</select>
+	
+	<select id="getAllPlaceList" resultType="Place" parameterType="Paging">
+	<!-- select * from place order by place_no desc -->
+		select * 
+		from (
+			select row_number() over(order by place_no desc) rn	, place.*
+			from place
+		)
+		where
+			rn between #{start} and #{end}
+	</select>
+	
+	<select id="getMyPlaceList" resultType="Place" parameterType="Paging">
+		select * from place where p_user_no = #{p_user_no}
+	</select>
+	
+	<select id="getMyDirectionList" resultType="Direction" parameterType="Paging">
+		select * from direction where d_user_no = #{p_user_no}
+	</select>
+	   
+	<!--    <select id="getMyDirectionList" resultType="Place" parameterType="Paging">
+	   select * from direction where d_user_no=#{p_user_no}
+	</select>
+	-->
+	<select id="findPlaceByTitle" parameterType="string" resultType="Place">
+		select * from place where title = #{title}
+	</select>
+	  
+	<select id="findPlaceByPlaceid" parameterType="int" resultType="Place">
+		select * from place where place_no=#{place_no}
+	</select>
+	
+	<select id="findPlaceByCoordinate" parameterType="map" resultType="Place">
+		select * from place where latitude = #{latitude} and longitude = #{longitude}
+	</select>
+	
+	<select id="findPlaceNearby" parameterType="map" resultType="Place">
+	   <!-- select * from place order by place_no desc -->
+	 select *
+	 from place
+	 where
+	 	 latitude between #{latitude} - 0.03 and #{latitude} + 0.03
+	 and longitude between #{longitude} - 0.03 and #{longitude} + 0.03
+	</select>
+	
+	<!-- 여기서 부터는 Direction DB 검색 Mapper -->
+	<insert id="registerDirection" parameterType="Direction">
+		<selectKey keyProperty="direction_no" order="BEFORE" resultType="int">
+			select nvl ( max ( direction_no ) + 1, 1) from direction
+		</selectKey>
+		insert into direction values ( 
+			#{direction_no}	, #{title}		, #{place_from}
+		  , #{place_to}		, #{distance}	, #{gpxfile}	, #{d_user_no}
+		  )
+	</insert>
+	
+	<!-- 경로 지우기 -->
+	<delete id="deleteDirection" parameterType="int">
+	   delete from direction where direction_no = #{value}
+	</delete>
+	
+	<select id="getTotalDirectionCount" resultType="int">
+	   select count(direction_no) from direction
+	</select>
+	
+	<select id="getAllDirectionList" resultType="Direction"
+	   parameterType="Paging">
+	   <!-- select * from direction order by direction_no desc -->
+	    select *
+	    from (
+		select
+			row_number() over(order by direction_no desc) rn
+		  , direction.*
+	    from direction
+	    )
+	    where
+	    	rn between #{start} and #{end}
+	</select>
+	 
+	<select id="findDirectionByDirectionid" parameterType="string" resultType="Direction">
+	    select * from direction where direction_no = #{direction_no}
+	</select>
+	
+	<select id="findDirectionByGpxfile" parameterType="string" resultType="Direction">
+		select * from direction where gpxfile = #{gpxfile}
+	</select>
+	
+	<select id="getMyPlaceCount" resultType="int">
+		select count(place_no) from place where p_user_no=#{p_user_no}
+	</select>
+	<select id="getMyDirectionCount" resultType="int">
+		select count(direction_no) from direction where d_user_no=#{d_user_no}
+	</select> 
+	 
+</mapper>
+   

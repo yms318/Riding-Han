@@ -1,0 +1,200 @@
+@charset "utf-8";
+
+@import url("swiper.min.css");
+@import url("jquery.bxslider.min.css");
+@import url("animated.css");
+@import url("fullpage.min.css");
+@import url("jquery.mCustomScrollbar.min.css");
+@import url('jquery-ui.css');
+@import url('nice-select.css');
+
+/* --------------------------------------------
+ * default
+/* ------------------------------------------ */
+html, body { width: 100%;}
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; outline: 0; vertical-align: baseline; background: transparent; }
+body { font-family: 'Noto Sans KR', '돋움', 'Dotum', Apple Gothic, Tahoma, Verdana, sans-serif; font-size:14px; color: #111; line-height: 1.4; background-color:#fff;}
+
+* { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; }
+*:before,
+*:after{ -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box;}
+
+a{ -webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;-ms-transition: all 0.2s ease-in-out;-o-transition: all 0.2s ease-in-out; transition:all 0.2s ease-in-out; }
+
+/* -------------------------------------------- html5 block ------------------------------------------ */
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{ display:block;}
+body{ -webkit-text-size-adjust:none; }
+ol, ul{ list-style:none;}
+blockquote, q{ quotes:none;}
+blockquote:before, blockquote:after,
+q:before, q:after{ content:''; content:none; }
+table{ width:100%; border-collapse:collapse; border-spacing:0; }
+img{ border:0; max-width:100%; height:auto; }
+iframe,
+embed,
+object,
+video {max-width:100%;}
+i,
+cite,
+em,
+var,
+address,
+dfn { font-style:normal;}
+
+.blind,
+legend{ position:absolute; left:0; top:0; width:1px; height:1px; font-size:0; line-height:0; overflow:hidden; visibility:hidden;}
+caption{ display:none;}
+
+/* ------------------------------------------ */
+a { color: #666; text-decoration: none; }
+
+/* --------------------------------------------
+	list
+/* ------------------------------------------ */
+ul, ol { list-style: none; }
+
+/* --------------------------------------------
+ * etc
+/* ------------------------------------------ */
+address, em { font-style: normal; }
+sup { position: relative; top: -3px; padding-left: 3px; font-size: 11px; }
+
+/* --------------------------------------------
+ * img
+/* ------------------------------------------ */
+img { vertical-align: top; }
+
+/* --------------------------------------------
+ * table
+/* ------------------------------------------ */
+table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+tbody, tfoot, thead, tr, th, td { word-break:break-all; vertical-align:middle; }
+caption { display: none; }
+
+/* --------------------------------------------
+ * fieldset
+/* ------------------------------------------ */
+fieldset { border: none; }
+legend { visibility: hidden; width: 0; height: 0; font-size: 0; line-height: 0; position: absolute; left: 0; top: -999999px; }
+
+/* --------------------------------------------
+ * form
+/* ------------------------------------------ */
+input[type=button],
+input[type=submit] { cursor: pointer; }
+button { width: auto; overflow: visible; background: none; border: none; cursor: pointer; margin: 0; padding: 0; }
+button > span { position: relative; }
+textarea { resize: none; padding: 0px; color: #666; box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; }
+select { border:solid 1px #c8cbd6; line-height:30px; height:30px; background-color:#fff;background-image:url('../images/ic_select.html'); background-position: right center; background-repeat: no-repeat; -webkit-appearance:none; -moz-appearance:none; -o-appearance:none; appearance:none; border-radius:0; -webkit-border-radius:0; padding:0 20px 0 10px; padding-right: 0\0/IE8+9; background-image:none\0/IE8+9; overflow:hidden; line-height:1\0/IE8+9; vertical-align:middle;}
+select::-ms-expand { display: none; /*display: block\0/IE8+9; */ }
+input, button, select, textarea { vertical-align:middle; }
+input.block, button.block, select.block, textarea.block{ width:100%; display: block;}
+
+fieldset{border:0}
+input,select,label{display:inline-block;box-sizing:border-box;vertical-align:middle;outline:0; }
+label{ color:#535a70; margin-right:5px;}
+input[type=text],
+input[type=password]{ font-size:14px; height:46px; padding:0 10px; border:solid 1px #ebebeb; line-height:44px; border-radius:2px; background-color:#fff; }
+input[type=text]:disabled,
+select:disabled,
+textarea:disabled{ border-color:#d7dae3; color:#d7dae3; background-color:#f8f8f9 !important;}
+input[type=button],
+button{vertical-align:middle;appearance:none;-ms-appearance:none;-webkit-appearance:none;-moz-appearance:none;outline:none;}
+input[type=button],
+input[type=submit],button{height:30px;border:0;text-align:center;cursor:pointer;}
+input[type=file]{cursor:pointer;}
+textarea{padding:3px;border:solid 1px #ddd;box-sizing:border-box;vertical-align:middle;resize:none;outline:none; font-family: 'Noto Sans','돋움', '굴림', serif; }
+input[type=text]:focus,
+input[type=password]:focus{ border-color:#999;}
+.ui-datepicker-trigger{ background:url('../images/sp_img.html') 7px -541px no-repeat; display: inline-block; width: 34px; height: 34px; text-indent:-9999px;}
+
+input.num{ height: 40px; line-height: 40px; background-color:#f7f7f7; text-align: right;}
+input.sm{ height: 40px; line-height: 40px; }
+
+input[type=checkbox],
+input[type=radio]{ position:absolute; top:0; left:-1000%; overflow:hidden; width:1px; height:1px; text-indent:-10000px; -ms-appearance:none; -webkit-appearance:none; -moz-appearance:none; appearance:none;}
+input[type=checkbox] + label::before{ content:""; display:inline-block; width:20px; height:20px; margin-right:5px; border:solid 1px #e2e2e2; vertical-align:-5px; background-color:#fff;}
+input[type=radio] + label::before{ content:""; display:inline-block; width:20px; height:20px; margin-right:5px; border:solid 1px #e2e2e2; vertical-align:-3px; background-color:#fff;}
+input[type=checkbox] + label.typ-ap::before{ display: none;}
+input[type=checkbox] + label.typ-ap::after{ content:""; display:inline-block; width:20px; height:20px; margin-left:5px; border:solid 1px #e2e2e2; vertical-align:-5px; background-color:#fff;}
+input[type=checkbox]:disabled + label::before,
+input[type=radio]:disabled + label::after,
+input[type=radio]:disabled + label::before{ border-color:#d7dae3; background-color:#fff; cursor:default;}
+input[type=radio] + label,
+input[type=checkbox] + label{ margin-right:10px;}
+input[type=radio] + label::before,
+input[type=checkbox] + label::before,
+input[type=checkbox] + label::after{ border-radius:18px;}
+input[type=radio]:checked + label::before,
+input[type=checkbox]:checked + label::before,
+input[type=checkbox]:checked + label::after{ background:#fff url('../images/blt_radio.png') 50% 50% no-repeat;}
+
+input:focus::-webkit-input-placeholder{color:transparent;}
+input:focus::-moz-placeholder{color:transparent;}
+input:focus:-ms-input-placeholder{color:transparent;}
+input:focus::-ms-input-placeholder{color:transparent;}
+
+
+/* common */
+.blind { display: block; overflow: hidden; position: absolute; left: -1000%; top: 0; width: 0; height: 0; font-size: 0; line-height: 0; text-indent: -10000px; }
+.hide { display: none; }
+.c-blue{ color:#8ea4e4 !important;}
+.c-blue2{ color:#336fdc !important;}
+.c-gray{ color:#959595 !important;}
+.c-red{ color:#d93025 !important;}
+.bg-yellow{ background-color:#fffccc;}
+.text-left{ text-align: left !important;}
+.text-center{ text-align: center !important;}
+.text-right{ text-align: right !important;}
+.fr{ float:right !important;}
+
+.mt-0{ margin-top:0 !important;}
+
+/* btn */
+.btn-box{ text-align:center; margin:20px 0 0; }
+.btn-box:after{content:""; display:block; height:0; clear:both; visibility:hidden;}
+.btn-box.page-line{ position:relative; z-index:1; height:0; margin-top:0; }
+.btn-box.page-line .fr,
+.btn-box.page-line .fl{ position:absolute; top:-30px; float:none; }
+.btn-box.page-line .fr{right:0;}
+.btn-box.page-line .fl{left:0;}
+.btn-box .btn + .btn{ margin-left:8px;}
+.btn-box.n2 .btn{ width:49%; float:left;}
+.btn-box.n2 .btn + .btn{ float:right;}
+.btn-box.lg{ margin-top:50px;}
+
+.btn{ min-width:110px; padding:0 30px; display:inline-block;  vertical-align:middle; line-height:46px; margin:0; letter-spacing:-0.05em; border:#ebebeb 1px solid; white-space:nowrap; height:46px; color:#0d1d42; font-size:14px; text-align:center; background-color:#fff;}
+.btn:hover{ background-color:#0d1d42; color:#fff;}
+.btn.btn01{ background-color:rgba(14,73,219,.8); color:#fff; border:none;}
+.btn.btn02{ background-color:rgba(158,11,15,.9); color:#fff; border:none;}
+.btn.btn-blue{ background-color:#336fdc; color:#fff;}
+.btn.btn-blue:hover{ background-color:#397efd;}
+.btn.btn-blue2{ }
+.btn.btn-blue2:hover{ background-color:#397efd;}
+.btn.btn-lg{ height: 50px; line-height: 50px; font-size:16px;}
+.btn.radius{ border-radius:25px;}
+.btn.radius2{ border-radius:5px;}
+.btn.wide{ min-width:220px;}
+.btn > .ic-down{ display: inline-block; width:18px; height: 14px; background:url('../images/blt_down2.png') 50% 50% no-repeat; margin-left:5px;}
+
+@media screen and (max-width:767px){
+    body { font-size:13px;}
+    input[type=text],
+    input[type=password]{ font-size: 12px; height:30px; padding:0 10px; border:solid 1px #ebebeb; line-height:28px; border-radius:2px; background-color:#fff; }
+
+    input[type=checkbox] + label::before{ width:10px; height:10px; vertical-align:0; }
+    input[type=radio] + label::before{ width:10px; height:10px; vertical-align:0; }
+    input[type=checkbox]:checked + label::before{ background:#fff url('../images/blt_radio.png') 50% 50% no-repeat; background-size:4px;}
+    input[type=radio]:checked + label::before{ background:#fff url('../images/blt_radio.png') 50% 50% no-repeat; background-size:4px;}
+
+    .btn.btn-lg{ height: 34px; line-height: 34px; font-size:13px;}
+}
+
+
+
+
+
+video::-webkit-media-controls {
+  display: none;
+}

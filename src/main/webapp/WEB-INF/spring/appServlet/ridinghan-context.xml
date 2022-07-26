@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:beans="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 어노테이션 방식을 이용할 경우 scan할 패키지를 지정한다...-->
+	<!-- component-scan 등록 ==================================== -->
+	<context:component-scan base-package="com.tis.ridinghan"/>
+	<context:component-scan base-package="com.tis"/>
+	<!-- ====================================================== -->	
+
+   <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+   
+   <!-- Enables the Spring MVC @Controller programming model -->
+   <annotation-driven />
+
+   <!-- Handles HTTP GET requests for /resources/**
+   by efficiently serving up static resources in the ${webappRoot}/resources directory
+   	정적인 파일들을 별도로 처리하지 않고 브라우저에 출력하도록 아래 매핑을 설정하자
+   -->
+   
+   <resources mapping="/resources/**" location="/resources/" />
+   <resources mapping="/asset/**" location="/asset/" />
+   <resources mapping="/gpx/**" location="/gpx/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory
+   		ViewResolver 설정은 servlet-context.xml에 설정되어 있으므로 주석 처리
+	-->
+	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	      <beans:property name="prefix" value="/WEB-INF/views/" />
+	      <beans:property name="suffix" value=".jsp" />
+		</beans:bean>
+   -->
+    
+    <!-- Interceptor 설정 ================================-->
+    <interceptors>
+    	<interceptor>
+    		<mapping path="/mypage/**"/>
+    		<mapping path="/chat/**"/>
+    		<mapping path="/plan/**"/>
+    		<beans:bean class="com.tis.common.LoginCheckInterceptor"></beans:bean>
+    	</interceptor>
+    </interceptors>
+  <!--  ================================================ -->
+       
+    <!-- fileupload를 위한 multipartResolver빈 등록
+    	주의 : id는 반드시 multipartResolver로 등록해야 한다.
+    	다른 아이디를 주면 DispatcherServlet이 MultipartResolver로 인식하지 않는다.
+     -->
+     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+     	<beans:property name="maxUploadSize" value="-1"/>
+     	<!-- 최대 업로드 용량 : -1을 주면 무제한이 가능함 -->
+     	<beans:property name="defaultEncoding" value="UTF-8"/>
+     </beans:bean>
+     
+</beans:beans>

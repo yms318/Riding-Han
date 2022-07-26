@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스명과 namespace를 동일하게 주어야 함 -->
+<mapper namespace="com.tis.chat.mapper.ChatMapper">
+	<select id="showChatList" parameterType="com.tis.chat.model.PagingVO" resultType="Chat">
+		select *
+		from (
+			select
+				chat.*	, row_number() over(order by chat_no desc) rn
+			from chat
+			where chat_text='|start|'
+		)
+		where
+			rn between #{start} and #{end}
+		<!-- select * from(
+		select row_number() over(order by chat_no desc) rn, chat.*
+		from chat) where rn between 1 and 10 -->
+	</select>
+	<select id="getTotalCount" parameterType="int" resultType="int">
+		select count(*)
+		from (
+			select
+				chat.*	, row_number() over(order by chat_no desc)
+			from chat
+			where chat_text ='|start|'
+		)
+	</select>
+	<select id="getSearchList" parameterType="com.tis.board.model.PagingVO" resultType="Chat">
+		select * 
+		from chat
+		where
+			chat_title like '%'||#{findKeyword}||'%'
+		and chat_text ='|start|'
+	</select>
+	<select id="chatRoomInfo" parameterType="String" resultType="Chat">
+		select *
+		from chat
+		where
+			room_code = #{room_code}
+		and chat_text ='|start|'
+	</select>
+	<select id="chatMemberList" parameterType="String" resultType="Chat_Member">
+		select
+			cm.*	, m.nickName
+		from chat_member cm
+		join member 	 m 
+		on
+			cm.user_no = m.user_no
+		and cm.room_code = #{room_code}
+		order by cm.chat_jtime asc
+	</select>
+	<select id="chatMyInfo" parameterType="Map" resultType="Chat_Member">
+		select * 
+		from chat_Member
+		where
+			room_code = #{room_code}
+		and user_no = #{user_no}
+	</select>
+	<select id="showAllChat" parameterType="Chat_Member" resultType="Chat">
+		select
+			c.*	, m.nickname	, m.user_img
+		from chat   c 
+		join member m
+		on
+			c.chat_user_no = m.user_no
+		and c.room_code = #{room_code}
+		and chat_wtime <![CDATA[ > ]]> #{chat_jtime} 
+		order by chat_wtime asc
+	</select>
+	<insert id="createChat" parameterType="Chat">
+		insert into chat (
+			chat_no	
+		  , chat_title	, chat_text	, chat_wtime	, chat_img
+		  , chat_user_no, room_code	, chat_info
+		  )	values (
+		  	( select nvl ( max ( chat_no ) + 1, 1) from chat )
+		  , #{chat_title}	, #{chat_text}	, sysdate	, #{chat_img}
+		  , #{chat_user_no} , #{room_code}  , #{chat_info}
+		  )
+	</insert>
+	<insert id="createChatMember" parameterType="Member">
+		insert into chat_member (
+			chat_member_no
+		  , room_code	, user_no	, chat_jtime	, plan_no
+		  ) values (
+		  ( select nvl ( max ( chat_member_no ) + 1, 1) from chat_member )
+		  , ( select room_code 
+		  	  from (
+		  	  	select * 
+		  	  	from chat
+		  	  	where
+		  	  		chat_user_no = #{user_no}
+		  	  	and chat_text = '|start|'
+		  	  	order by chat_wtime desc
+		  	  )
+		  	  where
+		  	  	rownum = 1)
+	      , #{user_no}	, sysdate	, null
+	      )
+	</insert>
+	<insert id="addChatMember" parameterType="Map">
+		insert into chat_member (
+			chat_member_no
+		  , room_code	, user_no	, chat_jtime	, plan_no
+		  )	values (
+		  	( select nvl ( max ( chat_member_no ) + 1, 1) from chat_member )
+		  , #{room_code}	, #{user_no}	, sysdate	, null
+		  )
+	</insert>
+	<!-- <select id="userNotoNick" parameterType="int" resultType="String">
+	   select nickname from member where user_no=#{user_no}
+	</select> -->   
+	<insert id="addChatText" parameterType="Chat">
+		insert into chat (
+			chat_no
+		  , chat_title	, chat_text	, chat_wtime	, chat_user_no
+		  , room_code	, chat_info
+		  )	values (
+		  ( select nvl ( max ( chat_no ) + 1, 1) from chat )
+		  , #{chat_title}	, #{chat_text}	, sysdate	, #{chat_user_no}
+		  , #{room_code}	, null)
+	</insert>
+	<delete id="quitChatMember" parameterType="Map">
+		delete from chat_member
+		where
+			room_code = #{room_code}
+		and user_no = #{user_no}
+	</delete>
+	<delete id="deleteChatRoom" parameterType="String">
+		delete from chat 
+		where
+			room_code = #{room_code}
+	</delete>
+</mapper>

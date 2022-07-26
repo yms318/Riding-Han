@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tis.campaign.mapper.CampaignMapper">
+	<select id="getAllCampaignListPaging" resultType="Campaign" parameterType="com.tis.campaign.model.PagingVO">
+		select *
+		from (
+			select
+				campaign.*	, row_number() over(order by campaign_no desc) rn
+			from campaign
+		)
+		where
+			rn between #{start} and #{end}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from campaign
+	</select>
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스명과 namespace를 동일하게 주어야 함 -->
+<mapper	namespace="com.tis.plan.mapper.PlanMapper">
+	<insert id="createPlan" parameterType="Plan">
+		insert into plan (
+				plan_no
+			  , user_no			, plan_title	, plan_about	, place_no
+			  , direction_no	, plan_wdate	, plan_code
+			) values (
+				( select nvl ( max ( plan_no ) + 1, 1) from plan )
+			  , #{user_no}				, #{plan_title}	, #{plan_about}	, #{place_no:NUMERIC}
+			  , #{direction_no:NUMERIC}	, sysdate		, #{plan_code}
+			)
+	</insert>
+	<insert id="addPlace" parameterType="Plan">
+		insert into plan (
+				plan_no
+			  , user_no		, place_no	, direction_no
+			) values (
+				( select nvl ( max ( plan_no ) + 1, 1) from plan )
+			  , #{user_no}	, #{place_no:NUMERIC}	, #{direction_no:NUMERIC}
+			)
+	</insert>
+	<select id="planMyInfo" parameterType="int" resultType="Plan">
+		select * 
+		from (
+			select * 
+			from plan
+			where
+				user_no = #{user_no}
+			order by plan_wdate desc
+			)
+		where
+			rownum = 1
+	</select>
+	<insert id="createPlanInfo" parameterType="Plan">
+		insert into plan_Info (
+				plan_info_no
+			  , plan_code	, user_no	, plan_join	, plan_quit
+			  , share_ornot
+			) values (
+				( select nvl ( max ( plan_info_no ) + 1, 1) from plan_info )
+			  , #{plan_code}	, #{user_no}	, #{plan_wdate}	, null
+			  , #{share_ornot}
+			)
+	</insert>
+	<select id="showPlanList" parameterType="Paging4" resultType="Plan">
+		select
+			distinct user_no	, plan_code	, plan_title	, plan_about
+		  , to_char(plan_wdate,'yy-mm-dd') plan_wdateStr 
+		from plan
+		where
+			rownum between #{start} and #{end}
+		order by plan_code desc 
+	</select>
+ 	<select id="getTotalCount" parameterType="int" resultType="int">
+    	select count(distinct plan_code) from plan
+	</select>
+	<select id="getSearchList" parameterType="com.tis.board.model.PagingVO" resultType="Plan">
+	    select * 
+	    from (
+	    	select
+	    		distinct user_no	, plan_code	, plan_title	, plan_about
+	    	  , to_char(plan_wdate,'yy-mm-dd') plan_wdateStr 
+	 		from plan
+	 	)
+	 	where
+	 		plan_title like '%'||#{findKeyword}||'%'
+	 </select>
+	 <select id="showOnePlan" parameterType="String" resultType="Plan">
+	 	select *
+	 	from (
+	 		select *
+	 		from plan
+	 		where
+	 			plan_code = #{plan_code}
+	 		order by plan_wdate
+	 	)
+	 	where
+	 		rownum = 1 
+	 </select>
+	 <select id="showPlan" parameterType="String" resultType="Plan">
+	 	select *
+	 	from (
+	 		select
+	 			p.*	, l.title place_title
+	 		from plan  p
+	 		join place l
+			on
+				p.place_no = l.place_no
+			where
+				plan_code = #{plan_code}
+			union all
+			select
+				p.*	, d.title place_title
+			from plan      p
+			join direction d
+			on
+				p.direction_no = d.direction_no
+			where
+				plan_code = #{plan_code}
+		)
+		order by plan_wdate
+	 </select>
+	 <select id="showPlanInfo" parameterType="String" resultType="Plan_Info">
+	 	select * 
+	 	from (
+	 		select *
+	 		from plan_info
+	 		where
+	 			plan_code = #{plan_code}
+	 		order by plan_join
+	 	)
+	 	where
+	 		rownum = 1
+	 </select>
+	 <select id="planMemberList" parameterType="String" resultType="Plan_Info">
+	    select
+	    	pi.*	, m.nickName
+	    from plan_info pi
+	    join member    m 
+	    on
+	    	pi.user_no = m.user_no
+	    and pi.plan_code = #{plan_code}
+	    order by pi.plan_join
+	 </select>
+	 <insert id="joinPlan" parameterType="Map">
+		insert into plan_info (
+				plan_info_no
+			  , plan_code	, user_no	, plan_join	, plan_quit
+			  , share_ornot
+		 	) values (
+		 		( select nvl ( max ( plan_info_no ) + 1, 1) from plan_info )
+		 	  , #{plan_code}	, #{user_no}	, sysdate	, null
+		 	  , 0
+		 	)
+	 </insert>
+</mapper>

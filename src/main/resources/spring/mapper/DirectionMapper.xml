@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 인터페이스명과 namespace를 동일하게 주어야 함  -->
+<mapper namespace="com.tis.place.mapper.DirectionMapper">
+   
+	<!-- id는 UserMapper인터페이스의 메소드명과 동일하게 준다  -->
+	<insert id="registerDirection" parameterType="Direction">
+		<selectKey keyProperty="direction_no" order="BEFORE" resultType="int">
+		 	select nvl ( max ( direction_no ) + 1, 1) from direction
+		</selectKey>
+		insert into place
+		values (
+			#{direction_no}	, #{title}	, #{place_from}
+		  , #{place_to}		, #{distance}
+		)
+	</insert>	
+	<select id="getTotalDirectionCount" resultType="int">
+		select count(direction_no) from direction
+	</select>	
+	<select id="getAllDirectionListPaging" resultType="Direction" parameterType="Paging">
+		<!-- select * from place order by place_no desc -->
+		select * 
+		from (
+ 			select
+ 				row_number() over(order by direction_no desc) rn
+ 			  , direction.*
+ 			from direction
+ 		)
+ 		where rn between #{start} and #{end}
+	</select>
+	<select id="findDirectionByTitle" parameterType="string" resultType="Direction">
+			select * from place where title = #{title}
+	</select>
+   
+</mapper>
+   

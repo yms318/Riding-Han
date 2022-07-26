@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tis.board.mapper.BoardMapper">
+	<select id="getAllBoardListPaging" resultType="Board" parameterType="com.tis.board.model.PagingVO">
+		select * 
+		from (
+			select
+				board.*
+			  , row_number() over(order by board_idx desc) rn
+			from board
+		)
+		where
+			rn between #{start} and #{end}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from board
+	</select>
+	<insert id="insertBoard" parameterType="Board">
+		insert into board (
+		  		board_idx
+			  , board_title	, board_user_no	, board_pwd			, board_content
+			  , board_wdate	, user_id		, originfilename	, filename		
+			  , filesize		, refer		, lev			    , sunbun		
+			  , user_nick		, readnum
+		    ) values (
+			  	( select nvl ( max ( board_idx ) + 1, 1) from board )
+			  , #{board_title}		, #{board_user_no}	, #{board_pwd}				, #{board_content:VARCHAR}
+			  , sysdate				, #{user_id}		, #{originFilename:VARCHAR}	, #{filename:VARCHAR}
+			  , #{filesize:VARCHAR} , #{board_idx}		, #{lev}					, #{sunbun}
+			  , #{user_nick}		, 0
+			)
+	</insert>
+	<select id="selectBoardView" parameterType="int" resultType="Board">
+		select
+			board_idx	, board_title	, board_pwd	 , board_content
+		  , board_wdate	, filename	, originfilename	, filesize	, readnum
+		  , (select user_nick from member where user_no = board_user_no) user_nick
+		  , (select user_no from member where user_no = board_user_no) board_user_no
+		from board
+		where
+			board_idx = #{value}
+	</select>
+	<update id="editBoard" parameterType="board">
+		update board
+		set
+			board_title = #{board_title}
+		  , board_content = #{board_content}
+		where
+			board_idx = #{board_idx}
+	</update>
+	<update id="deleteBoard" parameterType="int">
+		delete from	board where	board_idx = #{board_idx}
+	</update>
+	<select id="searchBoard" parameterType="com.tis.board.model.PagingVO" resultType="Board">
+		select * 
+		from board
+		where
+			board_title like '%'||#{findKeyword}||'%'
+	</select>
+	<update id="updateReadnum" parameterType="int">
+		update board
+		set
+			readnum = (readnum + 1)
+		where
+			board_idx = #{board_idx}
+	</update>
+	<select id="getTop5BoardList" parameterType="com.tis.board.model.PagingVO" resultType="Board">
+		select *
+		from board
+		order by readnum desc
+	</select>
+	<insert id="insertReply" parameterType="Reply">
+		insert into reply (
+				reply_idx
+			  , reply_content	, reply_wname	, wdate	, board_idx_fk
+			  , reply_id
+			) values (
+				( select nvl ( max (reply_idx) + 1, 1) from reply)
+			  , #{reply_content}	, #{reply_wname}	, sysdate	, #{board_idx_fk}
+			  , #{reply_id}
+			)
+	</insert>
+	<select id="getReplyList" parameterType="int" resultType="Reply">
+		select * 
+		from reply
+		where
+			board_idx_fk = #{board_idx}
+	</select>
+	<select id="countReply" parameterType="int" resultType="int">
+		select
+			count(board_idx_fk)
+		from reply
+		where
+			board_idx_fk = #{board_idx}
+	</select>
+	<update id="delReply" parameterType="Reply">
+		delete from reply
+		where
+			reply_idx = #{reply_idx}
+		and board_idx_fk = #{board_idx_fk}
+	</update>
+	<select id="selectReply" parameterType="Reply" resultType="Reply">
+		select *
+		from reply
+		where
+			reply_idx = #{reply_idx}
+	</select>
+</mapper>
