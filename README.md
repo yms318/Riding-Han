@@ -1,9 +1,10 @@
+※ 네이버 지도 API 서비스 만료됨
+※ 오라클 클라우드 데이터베이스 연동하였으나 context-datasource.xml의 TNS_ADMIN= 다음을 src/main/resources/Wallet_orcl의 절대경로로 수정해야함
+
 # 달려라 한강(Riding HanGang)
 
 <h2>1. 달려라 한강 프로젝트</h2>
-
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_1.jpg" width = "90%"></img>
-
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_1.jpg" width = "90%"></img>
 <h2>2. 개발목적 및 프로젝트 개요</h2>
 
 자전거 이용자들을 위한 웹 어플리케이션.
@@ -25,13 +26,13 @@ Framework : Spring, MyBatis
 
 <h4>2) 팀원 소개</h4>
 4명
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_5.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_5.jpg" width = "90%"></img>
 
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_6.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_6.jpg" width = "90%"></img>
 
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_7.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_7.jpg" width = "90%"></img>
 
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_8.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_8.jpg" width = "90%"></img>
  
  
  <h4>3) 제작기간</h4>
@@ -44,18 +45,19 @@ Framework : Spring, MyBatis
 
 <h3>1) 데이터베이스 설계</h3>
 
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_9.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/RidingHan_ppt_9.jpg" width = "90%"></img>
 
 <h3>2) 프로젝트 시연</h3>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_7.jpg" width = "90%"></img>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_8.jpg" width = "90%"></img>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_9.jpg" width = "90%"></img>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_10.jpg" width = "90%"></img>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_11.jpg" width = "90%"></img>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_12.jpg" width = "90%"></img><img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_13.jpg" width = "90%"></img>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_14.jpg" width = "90%"></img>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_15.jpg" width = "90%"></img>
-<img src = "https://github.com/Minho-Son/RidingHan/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_16.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_7.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_8.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_9.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_10.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_11.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_12.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_13.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_14.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_15.jpg" width = "90%"></img>
+<img src = "https://github.com/yms318/Riding-Han/blob/master/RH_ppt_images/RidingHan_ppt/포트폴리오_유민선_16.jpg" width = "90%"></img>
 
 
 감사합니다.
