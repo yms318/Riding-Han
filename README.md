@@ -1,4 +1,4 @@
-※ 네이버 지도 API 서비스 만료됨
+※ 네이버 지도 API 서비스 만료됨</br>
 ※ 오라클 클라우드 데이터베이스 연동하였으나 context-datasource.xml의 TNS_ADMIN= 다음을 src/main/resources/Wallet_orcl의 절대경로로 수정해야함
 
 # 달려라 한강(Riding HanGang)
